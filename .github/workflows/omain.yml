@@ -21,16 +21,23 @@ jobs:
         architecture: 'x64'
         check-latest: false
 
-    # Install JMeter
+    # Install JMeter on Windows
     - name: Install JMeter
       run: |
         Invoke-WebRequest -Uri "https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz" -OutFile "apache-jmeter-5.6.3.tgz"
         tar -xvzf apache-jmeter-5.6.3.tgz
         Move-Item -Path "apache-jmeter-5.6.3" -Destination "C:\JMeter"
 
-    - name: Verify JMeter installation
+    # List the contents of C:\JMeter to verify extraction
+    - name: Verify JMeter extraction
       run: |
-        Get-ChildItem -Path "C:\JMeter\apache-jmeter-5.6.3\bin"
+        # Check if the JMeter directory exists and list the contents
+        if (Test-Path "C:\JMeter\apache-jmeter-5.6.3") {
+          Get-ChildItem -Path "C:\JMeter\apache-jmeter-5.6.3\bin"
+        } else {
+          Write-Host "JMeter directory does not exist at C:\JMeter\apache-jmeter-5.6.3"
+          exit 1
+        }
 
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
