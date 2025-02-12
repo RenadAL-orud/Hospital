@@ -32,11 +32,7 @@ jobs:
     - name: Run JMeter test
       run: |
        run: |
-            /opt/jmeter/apache-jmeter-5.6.3/bin/jmeter -n -t C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx
-
-
-
-
+            /opt/jmeter/apache-jmeter-5.6.3/bin/jmeter -n -t "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx" ||exit1
 
     # Upload the results as artifact
     - name: Upload JMeter results
