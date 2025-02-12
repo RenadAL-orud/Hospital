@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
               java-version: '8'
-              distribution: 'adoptopenjdk'   # Specify distribution (you can choose other distributions like 'zulu' if needed)
+              distribution: 'adoptium'   # Specify distribution (you can choose other distributions like 'zulu' if needed)
 
 
       # Install JMeter
