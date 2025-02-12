@@ -9,7 +9,7 @@ jobs:
     steps:
     # Checkout the code
     - name: Checkout code
-      uses: actions/upload-artifact@v3
+      uses: actions/checkout@v2  # Changed to checkout action to fetch code, not upload-artifact
 
     # Set up JDK (since JMeter requires Java)
     - name: Set up JDK 11
@@ -27,11 +27,12 @@ jobs:
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
       run: |
-       jmeter -n -t "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx -l result.jtl"
+       C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx" -l "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\resulr.jtl" -e -o"C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\New folder"
+ # Update to correct path
 
     # Upload the results as artifact
     - name: Upload JMeter results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4  # Updated to the latest version
       with:
         name: jmeter-results
         path: result.jtl
