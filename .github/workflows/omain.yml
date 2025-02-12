@@ -31,7 +31,7 @@ jobs:
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
       run: |
-        /opt/jmeter/bin/jmeter -n -t C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx -l "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\resulr.jtl" || exit 1
+        /opt/jmeter/bin/jmeter -n -t C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx -l "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\resulr.jtl" -e -o"C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTML" || exit 1
 
     # Upload the results as artifact
     - name: Upload JMeter results
