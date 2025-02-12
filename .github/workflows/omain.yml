@@ -16,8 +16,10 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-    
-    distribution: adoptopenjdk
+        distribution: 'adoptium'  # Correct distribution name
+        java-package: 'jdk'  # Optional, defaults to 'jdk' (specifies the type of package)
+        architecture: 'x64'  # Optional, specifies architecture (x64 or arm64)
+        check-latest: false 
       
     # Install JMeter
     - name: Install JMeter
