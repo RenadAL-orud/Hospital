@@ -28,6 +28,10 @@ jobs:
         tar -xvzf apache-jmeter-5.6.3.tgz
         Move-Item -Path "apache-jmeter-5.6.3" -Destination "C:\JMeter"
 
+    - name: Verify JMeter installation
+      run: |
+        Get-ChildItem -Path "C:\JMeter\apache-jmeter-5.6.3\bin"
+
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
       run: |
