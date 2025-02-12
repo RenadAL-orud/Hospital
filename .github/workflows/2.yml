@@ -1,0 +1,34 @@
+name: Run JMeter Tests
+
+on:
+  push
+jobs:
+  jmeter-tests:
+    runs-on: windows-latest  # Choose the operating system for your workflow
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up JMeter using Docker
+      - name: Set up JMeter
+        uses: docker://justb4/jmeter:latest
+
+      # Step 3: Run JMeter test scripts
+      - name: Run JMeter Tests
+        run: |
+          docker run --rm -v $GITHUB_WORKSPACE:/tests justb4/jmeter -n -t /tests/tests/load_test.jmx -l /tests/results/test_results.jtl -e -o /tests/reports/
+
+      # Step 4: Upload the test results as artifacts
+      - name: Upload JMeter results
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter-test-results
+          path: |
+            results/test_results.jtl
+            reports/
+
+      # Step 5: Optional: Deploy or further actions can be added here
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
