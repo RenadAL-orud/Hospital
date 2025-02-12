@@ -1,0 +1,43 @@
+name: JMeter Test CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  jmeter-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up JDK (since JMeter requires Java)
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    # Install JMeter
+    - name: Install JMeter
+      run: |
+        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.3.tgz
+        tar -xvzf apache-jmeter-5.4.3.tgz
+        sudo mv apache-jmeter-5.4.3 /opt/jmeter
+
+    # Run JMeter test plan (.jmx file) in CLI mode
+    - name: Run JMeter test
+      run: |
+       jmeter -n -t "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx -l result.jtl"
+
+    # Upload the results as artifact
+    - name: Upload JMeter results
+      uses: actions/upload-artifact@v2
+      with:
+        name: jmeter-results
+        path: result.jtl
