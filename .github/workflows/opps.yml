@@ -1,9 +1,7 @@
 name: CI/CD for JMeter Tests
 
 on:
-  push:
-    branches:
-      - main  # Change to your default branch
+  push
 
 jobs:
   test:
