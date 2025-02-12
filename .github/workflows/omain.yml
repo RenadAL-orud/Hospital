@@ -24,9 +24,9 @@ jobs:
     # Install JMeter
     - name: Install JMeter
       run: |
-        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.3.tgz || exit 1
-        tar -xvzf apache-jmeter-5.4.3.tgz || exit 1
-        sudo mv apache-jmeter-5.4.3 /opt/jmeter || exit 1
+        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz || exit 1  # Updated to 5.6.3
+        tar -xvzf apache-jmeter-5.6.3.tgz || exit 1  # Updated to 5.6.3
+        sudo mv apache-jmeter-5.6.3 /opt/jmeter || exit 1  # Updated to 5.6.3
 
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
