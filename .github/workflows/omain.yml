@@ -32,7 +32,7 @@ jobs:
     - name: Run JMeter test
       run: |
        run: |
-             "C:\apache-jmeter-5.6.3\bin\jmeter.bat" -n -t "C:\Users\ribraheem\Downloads\BlazedDemo -Test\HTTP Request -reserve.php.jmx" || exit 1
+            /opt/jmeter/apache-jmeter-5.6.3/bin/jmeter -n -t C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx
 
 
 
