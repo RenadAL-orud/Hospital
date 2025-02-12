@@ -3,42 +3,75 @@ name: JMeter Tests
 on:
   push
 
+
 jobs:
   jmeter_test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Ensure this is a Windows runner
 
     steps:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Java 8 (using AdoptOpenJDK)
+      # Set up Java 8 (if needed)
       - name: Set up Java 8
         uses: actions/setup-java@v2
         with:
           java-version: '8'
-          distribution: 'adoptopenjdk' 
-    
+          distribution: 'zulu'  # Choose your preferred Java distribution
 
-      # Run JMeter Test
-      - name: Run JMeter Test
- # Install JMeter
+      # Install JMeter
       - name: Install JMeter
+        shell: pwsh
         run: |
-          # Download JMeter
-          wget https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
-          # Extract JMeter
-          tar -xvzf apache-jmeter-5.6.3.tgz
-          # Move JMeter to a directory for easy access
-          sudo mv apache-jmeter-5.6.3 /opt/jmeter
-          # Add JMeter to PATH for ease of use
-          echo 'export JMETER_HOME=/opt/jmeter' >> $GITHUB_ENV
-          echo 'export PATH=$JMETER_HOME/bin:$PATH' >> $GITHUB_ENV
+          # Define JMeter version and download URL
+          $jmeter_version = "5.6.3"
+          $jmeter_url = "https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-$jmeter_version.tgz"
+          $jmeter_dir = "C:\JMeter\apache-jmeter-$jmeter_version"
+
+          # Download and extract JMeter
+          Invoke-WebRequest -Uri $jmeter_url -OutFile "apache-jmeter-$jmeter_version.tgz"
+          tar -xvzf "apache-jmeter-$jmeter_version.tgz" -C "C:\JMeter"
+
+          # Check if JMeter was installed
+          if (Test-Path "$jmeter_dir") {
+            Write-Host "JMeter installed successfully at $jmeter_dir"
+          } else {
+            Write-Host "JMeter installation failed"
+            exit 1
+          }
+
+      # Check if the JMeter directory exists and list contents
+      - name: Check JMeter Installation
+        shell: pwsh
+        run: |
+          $jmeter_dir = "C:\JMeter\apache-jmeter-5.6.3"
+          if (Test-Path $jmeter_dir) {
+            Get-ChildItem -Path "$jmeter_dir\bin"
+          } else {
+            Write-Host "JMeter directory does not exist at $jmeter_dir"
+            exit 1
+          }
+
+      # Run JMeter Test (make sure to replace with the path to your test file)
+      - name: Run JMeter Test
+        shell: pwsh
+        run: |
+          $jmeter_cmd = "C:\JMeter\apache-jmeter-5.6.3\bin\jmeter.bat"
+          & $jmeter_cmd -n -t path_to_your_test_file.jmx -l result.jtl
+
+      # Upload results as artifact
+      - name: Upload JMeter Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter-results
+          path: result.jtl
+
           
       # Verify JMeter installation and list contents
       - name: Check JMeter installation
         run: |
           # Check if JMeter is installed correctly and list contents
           jmeter --version
-          ls -l $JMETER_HOMErun: |
+          run: |
           jmeter -n -t "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx" -l result.jtl
