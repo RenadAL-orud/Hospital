@@ -28,7 +28,7 @@ jobs:
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
       run: |
-       C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -reserve.php .jmx" -l "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\resulr.jtl" -e -o"C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\New folder"
+       C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\HTTP Request -res0rve.php .jmx" -l "C:\Users\ribraheem\Downloads\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin\BlazedDemo -Test\resulr.jtl" 
  # Update to correct path
 
     # Upload the results as artifact
