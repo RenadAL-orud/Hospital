@@ -24,14 +24,14 @@ jobs:
     # Install JMeter
     - name: Install JMeter
       run: |
-        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.3.tgz
-        tar -xvzf apache-jmeter-5.4.3.tgz
-        sudo mv apache-jmeter-5.4.3 /opt/jmeter
+        wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.4.3.tgz || exit 1
+        tar -xvzf apache-jmeter-5.4.3.tgz || exit 1
+        sudo mv apache-jmeter-5.4.3 /opt/jmeter || exit 1
 
     # Run JMeter test plan (.jmx file) in CLI mode
     - name: Run JMeter test
       run: |
-        /opt/jmeter/bin/jmeter -n -t ./tests/BlazedDemo-Test/HTTP_Request_reserve.php.jmx -l result.jtl
+        /opt/jmeter/bin/jmeter -n -t ./tests/BlazedDemo-Test/HTTP_Request_reserve.php.jmx -l result.jtl || exit 1
 
     # Upload the results as artifact
     - name: Upload JMeter results
